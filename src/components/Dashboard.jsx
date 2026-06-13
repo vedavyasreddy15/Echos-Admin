@@ -25,6 +25,7 @@ export default function Dashboard({ token, onLogout }) {
       await fetchCapsules();
     } catch (err) {
       console.error(err);
+      alert(err.response?.data?.error || err.message);
     } finally {
       setIsRefreshing(false);
     }
