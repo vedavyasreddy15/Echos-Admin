@@ -94,11 +94,11 @@ export default function Dashboard({ token, onLogout }) {
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #333', paddingBottom: '1rem' }}>
         <h2 style={{ color: '#d32f2f', margin: 0 }}>Echos Logistics Dashboard</h2>
         <div>
-          <button onClick={fetchCapsules} style={{ padding: '0.5rem 1rem', background: '#f8f9fa', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', marginRight: '1rem', fontWeight: 'bold' }}>Refresh ↻</button>
-          <button onClick={onLogout} style={{ padding: '0.5rem 1rem', background: 'transparent', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+          <button onClick={fetchCapsules} style={{ padding: '0.5rem 1rem', background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', marginRight: '1rem', fontWeight: 'bold' }}>Refresh ↻</button>
+          <button onClick={onLogout} style={{ padding: '0.5rem 1rem', background: 'transparent', color: '#ccc', border: '1px solid #555', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
         </div>
       </div>
 
