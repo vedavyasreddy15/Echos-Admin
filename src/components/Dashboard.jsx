@@ -96,7 +96,10 @@ export default function Dashboard({ token, onLogout }) {
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
         <h2 style={{ color: '#d32f2f', margin: 0 }}>Echos Logistics Dashboard</h2>
-        <button onClick={onLogout} style={{ padding: '0.5rem 1rem', background: 'transparent', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+        <div>
+          <button onClick={fetchCapsules} style={{ padding: '0.5rem 1rem', background: '#f8f9fa', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', marginRight: '1rem', fontWeight: 'bold' }}>Refresh ↻</button>
+          <button onClick={onLogout} style={{ padding: '0.5rem 1rem', background: 'transparent', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+        </div>
       </div>
 
       <div style={{ margin: '2rem 0', display: 'flex', gap: '1rem' }}>
