@@ -7,9 +7,28 @@ export default function Dashboard({ token, onLogout }) {
   const [loading, setLoading] = useState(true);
   const [selectedCapsule, setSelectedCapsule] = useState(null);
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   useEffect(() => {
     fetchCapsules();
   }, []);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      // Force the backend to check and send any due emails immediately
+      await axios.post(`${apiUrl}/api/capsules/process-due`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      // Then fetch the updated list
+      await fetchCapsules();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   const handleDownload = async (fileId, originalName) => {
     try {
@@ -94,10 +113,37 @@ export default function Dashboard({ token, onLogout }) {
 
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .spin-icon {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+          }
+        `}
+      </style>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #333', paddingBottom: '1rem' }}>
         <h2 style={{ color: '#d32f2f', margin: 0 }}>Echos Logistics Dashboard</h2>
         <div>
-          <button onClick={fetchCapsules} style={{ padding: '0.5rem 1rem', background: '#d32f2f', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', marginRight: '1rem', fontWeight: 'bold' }}>Refresh ↻</button>
+          <button 
+            onClick={handleRefresh} 
+            disabled={isRefreshing}
+            style={{ 
+              padding: '0.5rem 1rem', 
+              background: isRefreshing ? '#e57373' : '#d32f2f', 
+              color: '#fff', 
+              border: 'none', 
+              borderRadius: '4px', 
+              cursor: isRefreshing ? 'wait' : 'pointer', 
+              marginRight: '1rem', 
+              fontWeight: 'bold',
+              transition: 'background 0.2s'
+            }}>
+            Refresh <span className={isRefreshing ? 'spin-icon' : ''} style={{ display: 'inline-block' }}>↻</span>
+          </button>
           <button onClick={onLogout} style={{ padding: '0.5rem 1rem', background: 'transparent', color: '#ccc', border: '1px solid #555', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
         </div>
       </div>
