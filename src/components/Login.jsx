@@ -24,38 +24,77 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '400px', margin: '100px auto', fontFamily: 'sans-serif', border: '1px solid #ccc', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Echos Admin Portal</h2>
-      {error && <p style={{ color: 'red', textAlign: 'center', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px' }}>{error}</p>}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <div>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Email Address:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={e => setEmail(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }} 
-          />
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem' }} className="animate-fade-in">
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '420px', padding: '3rem 2.5rem' }}>
+        
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h2 style={{ fontSize: '2rem', margin: '0 0 0.5rem 0', fontWeight: 700, letterSpacing: '-0.5px' }}>
+            <span style={{ color: 'var(--text-main)' }}>Echos</span> <span style={{ color: 'var(--primary-crimson)' }}>Portal</span>
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>Secure Logistics Access</p>
         </div>
-        <div>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={e => setPassword(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }} 
-          />
-        </div>
-        <button 
-          type="submit" 
-          disabled={isLoading}
-          style={{ padding: '1rem', background: '#d32f2f', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1rem', marginTop: '10px' }}
-        >
-          {isLoading ? 'Authenticating...' : 'Secure Login'}
-        </button>
-      </form>
+
+        {error && (
+          <div style={{ background: 'rgba(230, 57, 70, 0.1)', borderLeft: '4px solid var(--primary-crimson)', color: '#ff8a93', padding: '12px 16px', borderRadius: '4px', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+          <div>
+            <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Email Address</label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={e => setEmail(e.target.value)} 
+              required 
+              style={{ 
+                width: '100%', 
+                padding: '12px 16px', 
+                borderRadius: '8px', 
+                border: '1px solid var(--border-glass)', 
+                background: 'rgba(0,0,0,0.4)', 
+                color: 'var(--text-main)',
+                outline: 'none',
+                fontFamily: 'var(--font-sans)'
+              }} 
+            />
+          </div>
+          <div>
+            <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Master Password</label>
+            <input 
+              type="password" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
+              required 
+              style={{ 
+                width: '100%', 
+                padding: '12px 16px', 
+                borderRadius: '8px', 
+                border: '1px solid var(--border-glass)', 
+                background: 'rgba(0,0,0,0.4)', 
+                color: 'var(--text-main)',
+                outline: 'none',
+                fontFamily: 'var(--font-sans)'
+              }} 
+            />
+          </div>
+          <button 
+            type="submit" 
+            disabled={isLoading}
+            className="primary-button"
+            style={{ 
+              padding: '14px', 
+              borderRadius: '8px', 
+              fontSize: '1rem', 
+              marginTop: '1rem',
+              cursor: isLoading ? 'wait' : 'pointer'
+            }}
+          >
+            {isLoading ? <span className="spin-icon">↻</span> : 'Authenticate'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
